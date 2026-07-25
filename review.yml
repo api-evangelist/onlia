@@ -1,0 +1,247 @@
+aid: onlia
+name: Onlia
+review:
+  question: Does Onlia expose a public, self-serve developer portal or documented API?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Canada
+  gated: true
+  specsHarvested: 0
+findings:
+  summary: |
+    Onlia (Onlia Agency Inc., a Canadian digital personal-lines insurance
+    brokerage backed by Southampton Financial Inc.) publishes NO public
+    developer portal, NO API reference, and NO downloadable machine-readable
+    API description of any kind. Every conventional developer host under
+    onlia.ca fails to resolve, and every conventional developer path on the
+    marketing site returns 404. The company's only quote/bind/issue and
+    self-service surface is app.onlia.ca — a consumer-facing Angular
+    single-page application whose backend is private to that app — and its
+    only "partner" surface is a marketing page that asks prospective affinity
+    partners to send an email. This is an accurate and expected outcome for a
+    Canadian personal-lines broker: Canada has no open-insurance mandate, and
+    Consumer-Driven Banking explicitly excludes insurance, so there is no
+    forcing function to publish anything.
+  developerPortal:
+    exists: false
+    url: null
+    classification: none
+    note: >-
+      No first-party developer portal of any kind was found. Nothing qualifies
+      as a real self-serve portal, a partner login wall, or even a marketing
+      "innovation"/API page.
+  probes:
+  - url: https://developer.onlia.ca/
+    status: 000
+    result: DNS does not resolve
+  - url: https://developers.onlia.ca/
+    status: 000
+    result: DNS does not resolve
+  - url: https://docs.onlia.ca/
+    status: 000
+    result: DNS does not resolve
+  - url: https://api.onlia.ca/
+    status: 000
+    result: >-
+      DNS does not resolve (NXDOMAIN). A historical TLS certificate for
+      api.onlia.ca appears in Certificate Transparency logs, but no host is
+      published today — there is no live API endpoint at this name.
+  - url: https://www.onlia.ca/developers
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/developer
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/api
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/integrations
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/partners
+    status: 200
+    result: >-
+      Live, but a pure B2B marketing page for affinity/group discount
+      partnerships. No API, SDK, sandbox, documentation, or technical
+      onboarding language. The call to action is a mailto link to a business
+      development contact at the parent company.
+  - url: https://app.onlia.ca/
+    status: 200
+    result: >-
+      Live consumer self-serve application (Angular SPA on S3/CloudFront,
+      Google reCAPTCHA, Canada Post AddressComplete, Zendesk). Asset
+      references in the page shell point at dev-app.sys.igniteinsurance.ca,
+      indicating the app runs on a white-labelled Ignite Insurance policy
+      administration platform. Its backing API is private to the SPA and is
+      not documented, versioned, or offered to third parties.
+  - url: https://app.onlia.ca/openapi.json
+    status: 404
+    result: Not found
+  - url: https://app.onlia.ca/swagger.json
+    status: 404
+    result: Not found
+  - url: https://app.onlia.ca/swagger/v1/swagger.json
+    status: 404
+    result: Not found
+  - url: https://app.onlia.ca/api-docs
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/openapi.json
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/swagger.json
+    status: 404
+    result: Not found
+  - url: https://www.onlia.ca/.well-known/openid-configuration
+    status: 404
+    result: Not served
+  - url: https://app.onlia.ca/.well-known/openid-configuration
+    status: 404
+    result: Not served
+  - url: https://www.onlia.ca/.well-known/oauth-authorization-server
+    status: 404
+    result: Not served
+  - url: https://partner.onlia.ca/
+    status: 404
+    result: >-
+      Resolves to an Unbounce landing-page host; the page itself is gone.
+      Marketing landing page infrastructure, never a technical surface.
+  - url: https://partnerships.onlia.ca/
+    status: 200
+    result: >-
+      Resolves to onlia.hasoffers.com (TUNE/HasOffers affiliate tracking).
+      Serves "Account Not Active" — a decommissioned affiliate-marketing
+      program, not an insurance integration surface.
+  openapi:
+    harvested: false
+    count: 0
+    note: >-
+      No OpenAPI, Swagger, AsyncAPI, GraphQL SDL, .proto, or Postman artifact
+      of any kind is published. No openapi/ directory was created because
+      nothing real exists to save. Note for future reviewers: the word
+      "swagger" does appear twice on https://www.onlia.ca/about — in the brand
+      copy "clarity, flexibility, and a little swagger" — and is NOT a
+      reference to the Swagger specification. Do not mistake it for one.
+  acord:
+    posture: no ACORD reference found
+    detail: >-
+      No mention of ACORD, AL3, ACORD XML, ACORD certification, NGDS, IVANS,
+      agency download, Applied Epic, or Vertafore AMS360 appears anywhere on
+      onlia.ca, its blog, its broker-disclosure page, or the app.onlia.ca
+      shell. As a direct-to-consumer digital brokerage Onlia does not present
+      an agency-management-system integration story publicly; whatever carrier
+      connectivity exists sits behind its Ignite policy administration vendor
+      and is not disclosed.
+  insuranceVerbs:
+    quote:
+      exposedAsAPI: false
+      note: Consumer quote flow only, inside app.onlia.ca. No API.
+    bind:
+      exposedAsAPI: false
+      note: Consumer purchase flow only, inside app.onlia.ca. No API.
+    issue:
+      exposedAsAPI: false
+      note: Policy documents delivered through the consumer account. No API.
+    fnol:
+      exposedAsAPI: false
+      note: >-
+        Claims are reported by phone and through https://www.onlia.ca/claims.
+        No FNOL API, no claims webhook, no partner claims intake endpoint.
+    audience: consumer-facing only (no agent-facing or partner-facing API tier)
+  auth:
+    model: >-
+      No public/third-party authentication model exists. The consumer app uses
+      a first-party session login with Google reCAPTCHA; no OAuth2, API key,
+      mTLS, or SAML partner federation is documented or discoverable. Neither
+      /.well-known/openid-configuration nor
+      /.well-known/oauth-authorization-server is served on www.onlia.ca or
+      app.onlia.ca.
+  webhooks:
+    documented: false
+    note: No event catalog, webhook documentation, or AsyncAPI description exists.
+  postman:
+    public: false
+    note: No public Postman collection or workspace found.
+  graphql:
+    public: false
+    note: No public /graphql surface found.
+  sourceCode:
+    githubOrganization: null
+    note: >-
+      GET https://api.github.com/orgs/onlia returns 404, and a GitHub
+      organization search for "onlia" returns 0 results. No public SDKs.
+  transports:
+  - protocol: REST
+    scheme: https
+    documented: false
+    note: >-
+      A private REST backend evidently serves app.onlia.ca, but it is neither
+      documented nor offered publicly and no base URL is published.
+  - protocol: GraphQL
+    documented: false
+  - protocol: WebSocket
+    scheme: wss
+    documented: false
+  - protocol: gRPC
+    documented: false
+  - protocol: ACORD/EDI
+    documented: false
+    note: No ACORD AL3, ACORD XML, or IVANS transport is publicly referenced.
+  businessContext:
+    role: brokerage (Onlia Agency Inc.), not an underwriting carrier
+    owner: Southampton Financial Inc. (Southampton group of companies)
+    carrierPanel:
+    - Aviva Insurance Company
+    - Gore Mutual
+    - Economical/Definity
+    - Pembridge Insurance
+    - Pafco
+    - Echelon
+    - Wawanesa
+    - Unica
+    - Forward Insurance
+    - Premier
+    - Facility (Intact)
+    - Apollo
+    carrierPanelSource: https://www.onlia.ca/broker-disclosure
+    regulatoryNote: >-
+      Canada splits supervision: OSFI prudentially supervises the
+      federally-regulated carriers on Onlia's panel while provincial regulators
+      (FSRA in Ontario, AMF in Quebec) handle market conduct and broker
+      licensing. There is no open-insurance mandate in Canada, and
+      Consumer-Driven Banking excludes insurance, so no regulator compels an
+      API here.
+sources:
+- url: https://www.onlia.ca/
+  status: 200
+  fetched: '2026-07-25'
+- url: https://www.onlia.ca/about
+  status: 200
+  fetched: '2026-07-25'
+- url: https://www.onlia.ca/partners
+  status: 200
+  fetched: '2026-07-25'
+- url: https://www.onlia.ca/broker-disclosure
+  status: 200
+  fetched: '2026-07-25'
+- url: https://www.onlia.ca/claims
+  status: 200
+  fetched: '2026-07-25'
+- url: https://www.onlia.ca/sitemap.xml
+  status: 200
+  fetched: '2026-07-25'
+  note: 396 URLs, all consumer marketing and blog content; no developer path.
+- url: https://www.onlia.ca/robots.txt
+  status: 200
+  fetched: '2026-07-25'
+  note: Squarespace default robots.txt; its Disallow /api/ refers to Squarespace's
+    own platform endpoints, not an Onlia API.
+- url: https://app.onlia.ca/
+  status: 200
+  fetched: '2026-07-25'
+- url: https://crt.sh/?q=%25.onlia.ca&output=json
+  status: 200
+  fetched: '2026-07-25'
+  note: Certificate Transparency enumeration of onlia.ca subdomains; used to confirm
+    api.onlia.ca has a historical certificate but no live host.

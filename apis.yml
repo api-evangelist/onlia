@@ -1,0 +1,66 @@
+aid: onlia
+url: https://raw.githubusercontent.com/api-evangelist/onlia/refs/heads/main/apis.yml
+name: Onlia
+kind: company
+description: >-
+  Onlia is a Canadian digital insurance brokerage, operating as the registered
+  business name of Onlia Agency Inc. and backed by Southampton Financial Inc.
+  (the Southampton group of companies). It sells personal lines direct to
+  consumers online and by phone — auto (car, motorcycle, ATV, snowmobile,
+  trailer, motorhome), property (home, condo, tenant, landlord, second home,
+  mobile home) and lifestyle lines (boat, pet, life, travel, seasonal) — plus
+  group and bundle programs. Onlia does not underwrite; it places business with
+  a panel of Canadian carriers disclosed publicly on its broker-disclosure page,
+  including Aviva, Gore Mutual, Economical/Definity, Pembridge, Pafco, Echelon,
+  Wawanesa, Unica, Forward, Premier, Facility Association (Intact) and APOLLO.
+  Its home market is Canada, concentrated in Ontario, where market conduct sits
+  with FSRA while OSFI supervises the federally-regulated carriers behind the
+  policies. API posture, recorded honestly: Onlia publishes NO public developer
+  portal and NO self-serve API. developer., developers., docs. and api. under
+  onlia.ca do not resolve, and /developers, /api, /developer and /integrations
+  on the marketing site all return 404. The only quote/bind/issue/FNOL surface
+  is app.onlia.ca, a consumer-facing Angular single-page app running on a
+  white-labelled Ignite Insurance policy administration platform whose backend
+  is private to the app. The one "partner" page is a B2B marketing page inviting
+  affinity discount partnerships by email, with no technical onboarding. No
+  ACORD, AL3, ACORD XML or NGDS reference appears anywhere on the public site.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Insurance
+- Canada
+- Property and Casualty
+- Insurtech
+- Broker
+- Personal Lines
+- Auto Insurance
+- Home Insurance
+- Direct to Consumer
+- Ontario
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.onlia.ca/
+- type: About
+  url: https://www.onlia.ca/about
+- type: Blog
+  url: https://www.onlia.ca/magazine/blogs
+- type: BlogRSS
+  url: https://www.onlia.ca/magazine/blogs?format=rss
+- type: Support
+  url: https://www.onlia.ca/support
+- type: Claims
+  url: https://www.onlia.ca/claims
+- type: Portal
+  url: https://app.onlia.ca/
+- type: Partners
+  url: https://www.onlia.ca/partners
+- type: Privacy
+  url: https://www.onlia.ca/about/privacy-notice
+- type: Disclosure
+  url: https://www.onlia.ca/broker-disclosure
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
