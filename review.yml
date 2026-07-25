@@ -113,6 +113,36 @@ findings:
       Resolves to onlia.hasoffers.com (TUNE/HasOffers affiliate tracking).
       Serves "Account Not Active" — a decommissioned affiliate-marketing
       program, not an insurance integration surface.
+  - url: https://prod-sf-esb-policy-management.us-e2.cloudhub.io/openapi.json
+    status: 404
+    result: >-
+      Not found. Probed 2026-07-25 during the enrichment round; /swagger.json,
+      /api/openapi.json, /api-docs and / are also 404 on this host.
+  - url: https://prod-sf-esb-policy-management.us-e2.cloudhub.io/console
+    status: 200
+    result: >-
+      Returns HTTP 200 with Content-Length 0 — an empty response, not a
+      MuleSoft APIkit console and not a RAML/OAS document. Same on
+      prod-sf-esb-authentication.us-e2.cloudhub.io/console. No machine-readable
+      contract is exposed.
+  - url: https://prod-jws.sys.igniteinsurance.ca/
+    status: 200
+    result: >-
+      Live vendor host (Ignite Insurance) backing the consumer app's
+      authentication calls. No /openapi.json, /swagger.json, /api-docs or
+      /console is served (all 404).
+  - url: https://www.onlia.ca/.well-known/security.txt
+    status: 404
+    result: Not served (Squarespace platform returns a JSON "security.txt not found").
+  - url: https://app.onlia.ca/.well-known/security.txt
+    status: 404
+    result: Not served (S3 NoSuchKey).
+  - url: https://www.onlia.ca/llms.txt
+    status: 404
+    result: Not served.
+  - url: https://status.onlia.ca/
+    status: 000
+    result: DNS does not resolve — no status page.
   openapi:
     harvested: false
     count: 0
@@ -123,6 +153,55 @@ findings:
       "swagger" does appear twice on https://www.onlia.ca/about — in the brand
       copy "clarity, flexibility, and a little swagger" — and is NOT a
       reference to the Swagger specification. Do not mistake it for one.
+  privateBackend:
+    discovered: '2026-07-25'
+    method: >-
+      Read the publicly served Angular bundle at
+      https://app.onlia.ca/main.34f53c80bb93696f26f0.bundle.js (HTTP 200, 2.7 MB)
+      and enumerated the backend hosts it calls.
+    architecture: >-
+      Onlia's consumer app is fronted by a MuleSoft Anypoint Platform (CloudHub)
+      integration tier plus the Ignite Insurance policy administration platform.
+      The SPA calls a set of per-domain CloudHub ESB applications in the us-e2
+      region — authentication, policy management (auto), a home policy router, a
+      document service, a VIN/MVR lookup service and a logging service — and an
+      Ignite-hosted user-authentication service for login, token validation and
+      password reset. Path families observed are /policy/auto/*, /policy/home/*
+      and /api/* on the ESB hosts, and /igniteUserAuthentication/* on the Ignite
+      host.
+    hosts:
+    - host: prod-sf-esb-policy-management.us-e2.cloudhub.io
+      role: auto policy management (quote/save/update/search, cart, premium)
+    - host: prod-sf-esb-home-policy-router.us-e2.cloudhub.io
+      role: home policy routing (save/update/payment/reinstatement)
+    - host: prod-sf-esb-authentication.us-e2.cloudhub.io
+      role: registration, customer/contact records, reCAPTCHA validation, saved quotes
+    - host: prod-sf-esb-document.us-e2.cloudhub.io
+      role: policy document delivery
+    - host: prod-sf-esb-vin-service.us-e2.cloudhub.io
+      role: VIN and MVR/AutoPlus lookups
+    - host: prod-sf-esb-auto-sf.us-e2.cloudhub.io
+      role: claims search and update (Salesforce-backed)
+    - host: prod-sf-esb-logger.us-e2.cloudhub.io
+      role: client-side logging sink
+    - host: prod-jws.sys.igniteinsurance.ca
+      role: Ignite user authentication (login, token validation, password reset)
+    publiclyOffered: false
+    documented: false
+    note: >-
+      This does NOT change the review's answer. These are first-party, private
+      backend services consumed by Onlia's own consumer SPA: they carry no
+      public documentation, no published base URL, no third-party
+      authentication model, no versioning policy, no terms, and no way to
+      obtain credentials. Probed anonymously they expose no machine-readable
+      contract (no OpenAPI/Swagger/RAML at any conventional path; /console
+      returns an empty 200). No endpoint inventory is published in this repo and
+      no apis.yml API entry is wired for them — recording an undocumented
+      internal surface as a public API would misrepresent Onlia's posture. The
+      finding is architectural: Onlia's quote/bind/issue/claims capability does
+      run over REST services on MuleSoft CloudHub behind an Ignite policy
+      administration platform, so the capability to expose a partner API exists
+      technically; the company simply does not offer one.
   acord:
     posture: no ACORD reference found
     detail: >-
@@ -171,13 +250,21 @@ findings:
     note: >-
       GET https://api.github.com/orgs/onlia returns 404, and a GitHub
       organization search for "onlia" returns 0 results. No public SDKs.
+      Re-checked 2026-07-25: an npm registry search for "onlia" returns zero
+      packages, https://pypi.org/pypi/onlia/json returns 404, and a GitHub
+      repository search for "onlia" returns only unrelated third-party repos
+      (plus this API Evangelist profile). No first-party client library exists
+      in any registry, so no packages/ artifact was created.
   transports:
   - protocol: REST
     scheme: https
     documented: false
     note: >-
-      A private REST backend evidently serves app.onlia.ca, but it is neither
-      documented nor offered publicly and no base URL is published.
+      A private REST backend serves app.onlia.ca — confirmed 2026-07-25 by
+      reading the public Angular bundle (see findings.privateBackend): MuleSoft
+      CloudHub ESB applications plus an Ignite Insurance authentication service.
+      It is neither documented nor offered publicly, publishes no base URL, and
+      exposes no machine-readable contract when probed anonymously.
   - protocol: GraphQL
     documented: false
   - protocol: WebSocket
@@ -245,3 +332,21 @@ sources:
   fetched: '2026-07-25'
   note: Certificate Transparency enumeration of onlia.ca subdomains; used to confirm
     api.onlia.ca has a historical certificate but no live host.
+- url: https://app.onlia.ca/main.34f53c80bb93696f26f0.bundle.js
+  status: 200
+  fetched: '2026-07-25'
+  note: >-
+    Public Angular application bundle (2.7 MB). Source of the private-backend
+    architecture finding (MuleSoft CloudHub ESB hosts + Ignite Insurance
+    authentication service).
+- url: https://www.onlia.ca/about/conditions-of-use
+  status: 200
+  fetched: '2026-07-25'
+  note: Terms of service for the consumer site; wired into apis.yml.
+- url: https://www.onlia.ca/faqs
+  status: 200
+  fetched: '2026-07-25'
+- url: https://registry.npmjs.org/-/v1/search?text=onlia
+  status: 200
+  fetched: '2026-07-25'
+  note: Zero packages returned; no first-party SDK on npm.

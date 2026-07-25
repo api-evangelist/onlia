@@ -1,0 +1,46 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of https://www.onlia.ca and https://app.onlia.ca
+note: >-
+  Onlia serves no /.well-known/ discovery surface on either of its public hosts.
+  Every RFC 9116 / RFC 8414 / OIDC discovery / api-catalog / ai-plugin path was
+  probed and returned 404. This is a recorded negative result, not a gap in the
+  probe: nothing was found, so no WellKnown or SecurityTxt pointer is wired in
+  apis.yml. www.onlia.ca is a Squarespace site (its 404 body is the marketing
+  404 page; /.well-known/security.txt returns a JSON "security.txt not found"
+  from the Squarespace platform), and app.onlia.ca is a static Angular bundle on
+  S3/CloudFront (its 404 body is an S3 NoSuchKey error document).
+hosts:
+- host: https://www.onlia.ca
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://app.onlia.ca
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+found: []

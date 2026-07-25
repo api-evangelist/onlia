@@ -24,6 +24,11 @@ description: >-
   is private to the app. The one "partner" page is a B2B marketing page inviting
   affinity discount partnerships by email, with no technical onboarding. No
   ACORD, AL3, ACORD XML or NGDS reference appears anywhere on the public site.
+  The app's own bundle shows the private backend runs on MuleSoft Anypoint
+  CloudHub ESB services (auto and home policy, authentication, documents,
+  VIN/MVR, claims) plus an Ignite Insurance authentication service — real REST
+  plumbing behind the SPA, but undocumented, uncredentialed and not offered to
+  third parties, so no API entry is claimed here.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Insurance
@@ -41,6 +46,8 @@ modified: '2026-07-25'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: DomainSecurity
+  url: security/onlia-domain-security.yml
 - type: Website
   url: https://www.onlia.ca/
 - type: About
@@ -57,10 +64,26 @@ common:
   url: https://app.onlia.ca/
 - type: Partners
   url: https://www.onlia.ca/partners
-- type: Privacy
+- type: PrivacyPolicy
   url: https://www.onlia.ca/about/privacy-notice
+- type: TermsOfService
+  url: https://www.onlia.ca/about/conditions-of-use
 - type: Disclosure
   url: https://www.onlia.ca/broker-disclosure
+- type: HelpCenter
+  url: https://www.onlia.ca/faqs
+- type: Accessibility
+  url: https://www.onlia.ca/about/accessibility
+- type: PaymentAgreement
+  url: https://www.onlia.ca/payment-agreement
+- type: FraudReporting
+  url: https://www.onlia.ca/help/report-fraud
+- type: WellKnownProbe
+  url: well-known/onlia-well-known.yml
+- type: LLMsTxt
+  url: llms/onlia-llms.txt
+- type: Review
+  url: review.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
