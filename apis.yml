@@ -58,7 +58,7 @@ tags:
 - Canada
 - Property and Casualty
 - Insurtech
-- Brokers
+- Brokerage
 - Personal Lines
 - Auto Insurance
 - Home Insurance
@@ -75,6 +75,7 @@ tags_raw:
 - Home Insurance
 - Direct to Consumer
 - Ontario
+- Brokers
 created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
