@@ -1,4 +1,4 @@
-# Onlia (onlia)
+# Onlia
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,64 +64,83 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Onlia is a Canadian digital insurance brokerage, operating as the registered business name of Onlia Agency Inc. and backed by Southampton Financial Inc. It sells personal lines direct to consumers online and by phone — auto (car, motorcycle, ATV, snowmobile, trailer, motorhome), property (home, condo, tenant, landlord, second home, mobile home) and lifestyle lines (boat, pet, life, travel, seasonal) — plus group and bundle programs. Onlia does not underwrite; it places business with a panel of Canadian carriers disclosed on its broker-disclosure page.
+Onlia is a Canadian digital insurance brokerage, operating as the registered business name of Onlia Agency Inc. and backed by Southampton Financial Inc. (the Southampton group of companies). It sells personal lines direct to consumers online and by phone — auto (car, motorcycle, ATV, snowmobile, trailer, motorhome), property (home, condo, tenant, landlord, second home, mobile home) and lifestyle lines (boat, pet, life, travel, seasonal) — plus group and bundle programs. Onlia does not underwrite; it places business with a panel of Canadian carriers disclosed publicly on its broker-disclosure page, including Aviva, Gore Mutual, Economical/Definity, Pembridge, Pafco, Echelon, Wawanesa, Unica, Forward, Premier, Facility Association (Intact) and APOLLO. Its home market is Canada, concentrated in Ontario, where market conduct sits with FSRA while OSFI supervises the federally-regulated carriers behind the policies. API posture, recorded honestly: Onlia publishes NO public developer portal and NO self-serve API. developer., developers., docs. and api. under onlia.ca do not resolve, and /developers, /api, /developer and /integrations on the marketing site all return 404. The only quote/bind/issue/FNOL surface is app.onlia.ca, a consumer-facing Angular single-page app running on a white-labelled Ignite Insurance policy administration platform whose backend is private to the app. The one "partner" page is a B2B marketing page inviting affinity discount partnerships by email, with no technical onboarding. No ACORD, AL3, ACORD XML or NGDS reference appears anywhere on the public site. The app's own bundle shows the private backend runs on MuleSoft Anypoint CloudHub ESB services (auto and home policy, authentication, documents, VIN/MVR, claims) plus an Ignite Insurance authentication service — real REST plumbing behind the SPA, but undocumented, uncredentialed and not offered to third parties, so no API entry is claimed here.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/onlia/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/onlia/refs/heads/main/apis.yml)
+**Areas:** Insurance · Canada · Property and Casualty · Insurtech · Brokerage · Personal Lines · Auto Insurance · Home Insurance · Direct to Consumer · Ontario
 
-## Tags
+## Onlia on APIs.io
 
-- Insurance
-- Canada
-- Property and Casualty
-- Insurtech
-- Broker
-- Personal Lines
-- Auto Insurance
-- Home Insurance
-- Direct to Consumer
-- Ontario
+Everything profiled for Onlia is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/onlia/](https://apis.io/providers/onlia/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Security (1)
 
-**None.** Onlia publishes no public API.
+Authentication, trust centre, and vulnerability disclosure.
 
-There is no developer portal, no API reference, and no machine-readable API description of any kind. Every conventional developer host under `onlia.ca` fails to resolve (`developer.`, `developers.`, `docs.`, `api.` — the last has a historical TLS certificate in Certificate Transparency logs but no live host today), and every conventional developer path on the marketing site returns 404 (`/developers`, `/developer`, `/api`, `/integrations`).
+- [Onlia Domain Security](https://apis.io/security/onlia/onlia-domain-security/)
 
-The only quote / bind / issue and self-service surface is [app.onlia.ca](https://app.onlia.ca/), a consumer-facing Angular single-page application running on a white-labelled Ignite Insurance policy administration platform. Its backing REST API is private to that app — undocumented, unversioned publicly, and not offered to third parties. Claims are reported by phone and through the [claims page](https://www.onlia.ca/claims); there is no FNOL API.
+## Where to find this API
 
-**What is behind the app (2026-07-25 enrichment round).** The publicly served Angular bundle names the backend Onlia's own app calls: a set of MuleSoft Anypoint Platform (CloudHub) ESB applications in `us-e2` — auto policy management, a home policy router, authentication/registration, documents, VIN and MVR/AutoPlus lookups, Salesforce-backed claims, and a logging sink — plus an Ignite Insurance user-authentication service at `prod-jws.sys.igniteinsurance.ca`. Probed anonymously these hosts publish no machine-readable contract (no OpenAPI/Swagger/RAML at any conventional path; `/console` answers 200 with an empty body). This does not change the verdict: it is first-party plumbing for Onlia's own SPA, with no documentation, no published base URL, no third-party auth model, and no way to get credentials. The capability to expose a partner API clearly exists; the company does not offer one. See `findings.privateBackend` in [review.yml](review.yml).
-
-The one "partner" surface, [/partners](https://www.onlia.ca/partners), is a B2B marketing page inviting affinity and group-discount partnerships by email. It contains no API, SDK, sandbox, or technical onboarding language.
-
-**ACORD posture:** no ACORD reference found. Nothing on the site, the blog, the broker-disclosure page, or the app shell mentions ACORD, AL3, ACORD XML, NGDS, IVANS, agency download, Applied Epic, or Vertafore AMS360. (The word "swagger" appears twice on the About page — as brand copy, "a little swagger" — and is not a reference to the Swagger specification.)
-
-This absence is the finding, and it is the expected one. Canada has no open-insurance mandate, and Consumer-Driven Banking — Canada's open-banking framework — excludes insurance entirely. Nothing compels a personal-lines brokerage to publish an API, and Onlia does not.
-
-## Links
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.onlia.ca/)
-- [About](https://www.onlia.ca/about)
-- [Blog](https://www.onlia.ca/magazine/blogs) · [RSS](https://www.onlia.ca/magazine/blogs?format=rss)
 - [Support](https://www.onlia.ca/support)
-- [Claims](https://www.onlia.ca/claims)
-- [Customer Portal](https://app.onlia.ca/)
-- [Partners](https://www.onlia.ca/partners)
-- [Broker Disclosure](https://www.onlia.ca/broker-disclosure)
-- [Privacy Notice](https://www.onlia.ca/about/privacy-notice)
+- [Blog](https://www.onlia.ca/magazine/blogs)
+- [Terms of service](https://www.onlia.ca/about/conditions-of-use)
+- [Privacy policy](https://www.onlia.ca/about/privacy-notice)
 
-## Artifacts
+## API Evangelist rating
 
-- [llms/onlia-llms.txt](llms/onlia-llms.txt) — generated llms.txt (Onlia serves none; `/llms.txt` is 404 on both hosts).
-- [security/onlia-domain-security.yml](security/onlia-domain-security.yml) — probed TLS/HSTS/DNSSEC/CAA/SPF/DMARC posture. HSTS on `www` (6 months) but not on `app`; no DNSSEC, no CAA, SPF and DMARC present with `p=none`.
-- [well-known/onlia-well-known.yml](well-known/onlia-well-known.yml) — recorded negative result: no `/.well-known/` document of any kind is served on `www.onlia.ca` or `app.onlia.ca`.
+**Kin Score 11.7** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-No `packages/`, `openapi/`, `mcp/`, `skills/`, `scopes/`, `authentication/`, `changelog/`, `sandbox/` or `asyncapi/` artifacts exist, because none of the underlying things exist: no first-party SDK on npm/PyPI/any registry, no spec to ground them in, no event surface, no public auth model. Recording that honestly is the point.
+| Facet | Score |
+|---|---|
+| Discoverability | 48.2 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 16.7 |
+| Access clarity | 21.1 |
 
-## Review
+**Agent readiness 0.0** — human-only
 
-See [review.yml](review.yml) for the full API Evangelist review, including every probed URL with its HTTP status.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 12.3** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/onlia/](https://apis.io/providers/onlia/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Onlia: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/onlia/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
